@@ -7,13 +7,13 @@
              id="firstName"
              class="form-control"
              formControlName="firstName"
-             placeholder="Enter First Name"
+             placeholder="Enter your first name"
              required/>
       <div
         class="alert alert-danger"
-        *ngIf="firstName?.touched && !firstName?.valid"
+        *ngIf="firstName?.invalid && (firstName?.dirty || !firstName?.untouched)"
       >
-        <div *ngIf="firstName?.errors?.['required']">Name is required.</div>
+        <div *ngIf="firstName?.errors?.['required']">First Name is required.</div>
       </div>
     </div>
 
@@ -23,18 +23,13 @@
              id="lastName"
              class="form-control"
              formControlName="lastName"
+             placeholder="Enter your last name"
              required/>
       <div
         *ngIf="lastName?.invalid && (lastName?.dirty || !lastName?.untouched)"
         class="alert alert-danger"
       >
-        <div *ngIf="lastName?.errors?.['required']">Name is required.</div>
-        <div *ngIf="lastName?.errors?.['minlength']">
-          Name must be at least 4 characters long.
-        </div>
-        <div *ngIf="lastName?.errors?.['forbiddenName']">
-          Name cannot be Bob.
-        </div>
+        <div *ngIf="lastName?.errors?.['required']">Last Name is required.</div>
       </div>
     </div>
 
@@ -44,6 +39,7 @@
              id="email"
              class="form-control"
              formControlName="email"
+             placeholder="Enter your email address"
              required/>
       <div
         *ngIf="email?.invalid && (email?.dirty || !email?.untouched)"
@@ -60,6 +56,7 @@
              id="addressLine"
              class="form-control"
              formControlName="addressLine"
+             placeholder="Enter your address"
              required/>
       <div
         *ngIf="addressLine?.invalid && (addressLine?.dirty || !addressLine?.untouched)"
@@ -76,6 +73,7 @@
         class="form-control"
         formControlName="city"
         required>
+        <option value="" disabled selected>Select your city</option>
         <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
       </select>
       <div
@@ -92,23 +90,21 @@
              id="postalCode"
              class="form-control"
              formControlName="postalCode"
+             placeholder="Enter your postal code (e.g., K1A 0T6)"
              required/>
       <div *ngIf="postalCode?.invalid && (postalCode?.dirty || !postalCode?.untouched)"
            class="alert alert-danger"
       >
         <div *ngIf="postalCode?.errors?.['required']">Postal Code is required.</div>
-        <div *ngIf="postalCode?.errors?.['minlength']">Length Error!(Too short)</div>
-        <div *ngIf="postalCode?.errors?.['postalCodeInvalid']">Postal Code must be valid. Canada Postal Code Pattern is
-          ('ANA NAN', where 'A'
-          represents an alphabetic character and 'N' represents a numeric character ( e.g. , K1A 0T6))
-        </div>
-        <div *ngIf="postalCode?.errors?.['maxlength']">Length Error!(Too long)</div>
+        <div *ngIf="postalCode?.errors?.['minlength']">Length Error! (Too short)</div>
+        <div *ngIf="postalCode?.errors?.['maxlength']">Length Error! (Too long)</div>
         <div *ngIf="postalCode?.errors?.['pattern']">Postal Code must be valid. Canada Postal Code Pattern is
           ('ANA NAN', where 'A'
-          represents an alphabetic character and 'N' represents a numeric character ( e.g. , K1A 0T6))
+          represents an alphabetic character and 'N' represents a numeric character (e.g., K1A 0T6))
         </div>
       </div>
     </div>
+
     <button
       type="submit"
       class="btn btn-primary"
@@ -125,5 +121,4 @@
     </button>
 
   </form>
-
 </div>
