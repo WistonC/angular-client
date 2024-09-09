@@ -50,7 +50,10 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <!-- Reuse the AddressFormComponent here -->
+    <app-address-form [parentForm]="userForm" [cities]="cities" (addressFormReady)="onAddressFormReady($event)"></app-address-form>
+
+    <!--<div class="form-group">
       <label for="addressLine">Address Line</label>
       <input type="text"
              id="addressLine"
@@ -103,7 +106,7 @@
           represents an alphabetic character and 'N' represents a numeric character (e.g., K1A 0T6))
         </div>
       </div>
-    </div>
+    </div>-->
 
     <button
       type="submit"

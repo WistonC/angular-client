@@ -1,55 +1,58 @@
-import {User} from '../shared/user';
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {NgFor, NgIf} from '@angular/common';
-import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AddressFormComponent } from '../shared/address-form.component';
+import {CommonModule} from "@angular/common";
 
 @Component({
   standalone: true,
   selector: 'app-registration-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css'],
-  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor]
+  imports: [CommonModule, ReactiveFormsModule, AddressFormComponent]
 })
 export class RegisterFormComponent implements OnInit {
 
-  user = new User();
   cities = ['Toronto', 'Markham', 'Scarborough', 'Mississauga', 'Brampton', 'Vaughan', 'Richmond Hill', 'Oakville', 'Burlington', 'Hamilton', 'Oshawa', 'Whitby', 'Ajax', 'Pickering', 'Milton', 'Newmarket', 'Aurora', 'Stouffville', 'King City', 'Nobleton', 'Maple', 'Thornhill', 'Woodbridge', 'Etobicoke', 'North York', 'East York', 'York', 'Downtown Toronto', 'Midtown Toronto', 'Scarborough'];
   userForm!: FormGroup;
-  constructor(private http: HttpClient) { }
-  ngOnInit(): void {
-    this.userForm = new FormGroup({
-      firstName: new FormControl(this.user.firstName, [Validators.required,]),
-      lastName: new FormControl(this.user.lastName, [Validators.required,]),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email,]),
-      city: new FormControl(this.user.city, Validators.required),
-      addressLine: new FormControl(this.user.addressLine, Validators.required),
-      postalCode: new FormControl(this.user.postalCode, [Validators.required, Validators.minLength(7), Validators.maxLength(7),
-        Validators.pattern(/^[A-Z]\d[A-Z]\s\d[A-Z]\d$/),
-      ]),
-    },);
 
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.userForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
+
+  onAddressFormReady(addressForm: FormGroup) {
+    // Integrate address form controls into the parent form
+    this.userForm.addControl('address', addressForm);
   }
 
   onSubmit() {
-    console.log('Registering user: ' + this.userForm.value.firstName);
-    console.log('Registering user: ' + this.userForm.value.city);
-    const formData = this.userForm.value;
+    console.log('Form data to be posted:', JSON.stringify(this.userForm.value, null, 2));
     if (this.userForm.valid) {
-      this.registerUser(formData).subscribe(response => {
-        console.log('Registration successful', response);
-      }, error => {
-        console.error('Registration failed', error);
-      });
+      this.registerUser(this.userForm.value).subscribe(
+        response => {
+          console.log('Registration successful', response);
+        },
+        error => {
+          console.error('Registration failed', error);
+        }
+      );
     } else {
       console.log('Form is invalid');
     }
   }
+
   registerUser(userData: any): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.post('http://localhost:8080/user/register', userData);
+    return this.http.post('http://localhost:8080/user/register', userData, { headers });
   }
+
   get firstName() {
     return this.userForm.get('firstName');
   }
@@ -62,19 +65,19 @@ export class RegisterFormComponent implements OnInit {
     return this.userForm.get('email');
   }
 
+  get address() {
+    return this.userForm.get('address') as FormGroup;
+  }
+
   get addressLine() {
-    return this.userForm.get('addressLine');
+    return this.address?.get('addressLine');
   }
 
   get city() {
-    return this.userForm.get('city');
+    return this.address?.get('city');
   }
 
   get postalCode() {
-    return this.userForm.get('postalCode');
+    return this.address?.get('postalCode');
   }
-
-  protected readonly onsubmit = onsubmit;
 }
-
-
