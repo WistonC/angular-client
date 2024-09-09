@@ -1,0 +1,24 @@
+{
+  "USER_FORM": {
+    "TITLE": "Formulaire d'utilisateur",
+    "FIRST_NAME": "Prénom",
+    "FIRST_NAME_PLACEHOLDER": "Entrez votre prénom",
+    "FIRST_NAME_REQUIRED": "Le prénom est requis.",
+    "LAST_NAME": "Nom",
+    "LAST_NAME_PLACEHOLDER": "Entrez votre nom",
+    "LAST_NAME_REQUIRED": "Le nom est requis.",
+    "EMAIL": "E-Mail",
+    "EMAIL_PLACEHOLDER": "Entrez votre adresse e-mail",
+    "EMAIL_REQUIRED": "L'email est requis.",
+    "EMAIL_INVALID": "Email invalide",
+    "SUBMIT": "Soumettre",
+    "RESET": "Réinitialiser"
+  },
+  "ADDRESS_FORM": {
+    "ADDRESS_LINE": "Ligne d'adresse",
+    "CITY": "Ville",
+    "POSTAL_CODE": "Code postal",
+    "SUBMIT": "Soumettre",
+    "RESET": "Réinitialiser"
+  }
+}
