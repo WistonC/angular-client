@@ -3,23 +3,29 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AddressFormComponent } from '../shared/address-form.component';
-import {CommonModule} from "@angular/common";
-
+import {CommonModule } from "@angular/common";
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 @Component({
   standalone: true,
   selector: 'app-registration-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, AddressFormComponent]
+  imports: [CommonModule, ReactiveFormsModule, AddressFormComponent, TranslateModule]
 })
 export class RegisterFormComponent implements OnInit {
 
   cities = ['Toronto', 'Markham', 'Scarborough', 'Mississauga', 'Brampton', 'Vaughan', 'Richmond Hill', 'Oakville', 'Burlington', 'Hamilton', 'Oshawa', 'Whitby', 'Ajax', 'Pickering', 'Milton', 'Newmarket', 'Aurora', 'Stouffville', 'King City', 'Nobleton', 'Maple', 'Thornhill', 'Woodbridge', 'Etobicoke', 'North York', 'East York', 'York', 'Downtown Toronto', 'Midtown Toronto', 'Scarborough'];
   userForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private translate: TranslateService) {}
 
+  setLanguage(language: string) {
+    // this.location.go(`/${lang}`);
+    this.translate.use(language);
+    // Alternatively, use a translation service like ngx-translate for dynamic switching.
+  }
   ngOnInit(): void {
+    this.translate.setDefaultLang('en');
     this.userForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

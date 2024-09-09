@@ -1,127 +1,60 @@
 <div class="container">
-  <h1>User Form</h1>
+  <h1>{{ 'USER_FORM.TITLE' | translate }}</h1>
+
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <!-- First Name -->
     <div class="form-group">
-      <label for="firstName">First Name</label>
+      <label for="firstName">{{ 'USER_FORM.FIRST_NAME' | translate }}</label>
       <input type="text"
              id="firstName"
              class="form-control"
              formControlName="firstName"
-             placeholder="Enter your first name"
+             [placeholder]="'USER_FORM.FIRST_NAME_PLACEHOLDER' | translate"
              required/>
-      <div
-        class="alert alert-danger"
-        *ngIf="firstName?.invalid && (firstName?.dirty || !firstName?.untouched)"
-      >
-        <div *ngIf="firstName?.errors?.['required']">First Name is required.</div>
+      <div class="alert alert-danger" *ngIf="firstName?.invalid && (firstName?.dirty || !firstName?.untouched)">
+        <div *ngIf="firstName?.errors?.['required']">{{ 'USER_FORM.FIRST_NAME_REQUIRED' | translate }}</div>
       </div>
     </div>
 
+    <!-- Last Name -->
     <div class="form-group">
-      <label for="lastName">Last Name</label>
+      <label for="lastName">{{ 'USER_FORM.LAST_NAME' | translate }}</label>
       <input type="text"
              id="lastName"
              class="form-control"
              formControlName="lastName"
-             placeholder="Enter your last name"
+             [placeholder]="'USER_FORM.LAST_NAME_PLACEHOLDER' | translate"
              required/>
-      <div
-        *ngIf="lastName?.invalid && (lastName?.dirty || !lastName?.untouched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="lastName?.errors?.['required']">Last Name is required.</div>
+      <div *ngIf="lastName?.invalid && (lastName?.dirty || !lastName?.untouched)"
+           class="alert alert-danger">
+        <div *ngIf="lastName?.errors?.['required']">{{ 'USER_FORM.LAST_NAME_REQUIRED' | translate }}</div>
       </div>
     </div>
 
+    <!-- Email -->
     <div class="form-group">
-      <label for="email">E-Mail</label>
+      <label for="email">{{ 'USER_FORM.EMAIL' | translate }}</label>
       <input type="email"
              id="email"
              class="form-control"
              formControlName="email"
-             placeholder="Enter your email address"
+             [placeholder]="'USER_FORM.EMAIL_PLACEHOLDER' | translate"
              required/>
-      <div
-        *ngIf="email?.invalid && (email?.dirty || !email?.untouched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="email?.errors?.['required']">Email is required.</div>
-        <div *ngIf="email?.invalid">Invalid Email</div>
+      <div *ngIf="email?.invalid && (email?.dirty || !email?.untouched)"
+           class="alert alert-danger">
+        <div *ngIf="email?.errors?.['required']">{{ 'USER_FORM.EMAIL_REQUIRED' | translate }}</div>
+        <div *ngIf="email?.invalid">{{ 'USER_FORM.EMAIL_INVALID' | translate }}</div>
       </div>
     </div>
 
-    <!-- Reuse the AddressFormComponent here -->
+    <!-- Address Form (assumes it's already translated) -->
     <app-address-form [parentForm]="userForm" [cities]="cities" (addressFormReady)="onAddressFormReady($event)"></app-address-form>
 
-    <!--<div class="form-group">
-      <label for="addressLine">Address Line</label>
-      <input type="text"
-             id="addressLine"
-             class="form-control"
-             formControlName="addressLine"
-             placeholder="Enter your address"
-             required/>
-      <div
-        *ngIf="addressLine?.invalid && (addressLine?.dirty || !addressLine?.untouched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="addressLine?.errors?.['required']">Address Line is required.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="city">City</label>
-      <select
-        id="city"
-        class="form-control"
-        formControlName="city"
-        required>
-        <option value="" disabled selected>Select your city</option>
-        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-      </select>
-      <div
-        *ngIf="city?.invalid && (city?.dirty || !city?.untouched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="city?.errors?.['required']">City is required.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="postalCode">Postal Code</label>
-      <input type="text"
-             id="postalCode"
-             class="form-control"
-             formControlName="postalCode"
-             placeholder="Enter your postal code (e.g., K1A 0T6)"
-             required/>
-      <div *ngIf="postalCode?.invalid && (postalCode?.dirty || !postalCode?.untouched)"
-           class="alert alert-danger"
-      >
-        <div *ngIf="postalCode?.errors?.['required']">Postal Code is required.</div>
-        <div *ngIf="postalCode?.errors?.['minlength']">Length Error! (Too short)</div>
-        <div *ngIf="postalCode?.errors?.['maxlength']">Length Error! (Too long)</div>
-        <div *ngIf="postalCode?.errors?.['pattern']">Postal Code must be valid. Canada Postal Code Pattern is
-          ('ANA NAN', where 'A'
-          represents an alphabetic character and 'N' represents a numeric character (e.g., K1A 0T6))
-        </div>
-      </div>
-    </div>-->
-
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="userForm.invalid"
-    >
-      Submit
-    </button>
-    <button
-      type="button"
-      class="btn btn-default"
-      (click)="userForm.reset()"
-    >
-      Reset
-    </button>
-
+    <!-- Submit and Reset Buttons -->
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">{{ 'USER_FORM.SUBMIT' | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="userForm.reset()">{{ 'USER_FORM.RESET' | translate }}</button>
   </form>
+  <!-- Language Switcher -->
+  <button (click)="setLanguage('en')" class="btn btn-default">English</button>
+  <button (click)="setLanguage('fr')" class="btn btn-default">Français</button>
 </div>

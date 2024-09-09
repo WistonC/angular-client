@@ -1,13 +1,14 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
   standalone: true,
   imports: [
-    ReactiveFormsModule,CommonModule
+    ReactiveFormsModule, CommonModule, TranslateModule
   ],
   styleUrls: ['./address-form.component.css']
 })
