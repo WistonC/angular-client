@@ -1,0 +1,125 @@
+<div class="container">
+  <h1>User Form</h1>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text"
+             id="firstName"
+             class="form-control"
+             formControlName="firstName"
+             placeholder="Enter First Name"
+             required/>
+      <div
+        class="alert alert-danger"
+        *ngIf="firstName?.touched && !firstName?.valid"
+      >
+        <div *ngIf="firstName?.errors?.['required']">Name is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text"
+             id="lastName"
+             class="form-control"
+             formControlName="lastName"
+             required/>
+      <div
+        *ngIf="lastName?.invalid && (lastName?.dirty || !lastName?.untouched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="lastName?.errors?.['required']">Name is required.</div>
+        <div *ngIf="lastName?.errors?.['minlength']">
+          Name must be at least 4 characters long.
+        </div>
+        <div *ngIf="lastName?.errors?.['forbiddenName']">
+          Name cannot be Bob.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-Mail</label>
+      <input type="email"
+             id="email"
+             class="form-control"
+             formControlName="email"
+             required/>
+      <div
+        *ngIf="email?.invalid && (email?.dirty || !email?.untouched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="email?.errors?.['required']">Email is required.</div>
+        <div *ngIf="email?.invalid">Invalid Email</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="addressLine">Address Line</label>
+      <input type="text"
+             id="addressLine"
+             class="form-control"
+             formControlName="addressLine"
+             required/>
+      <div
+        *ngIf="addressLine?.invalid && (addressLine?.dirty || !addressLine?.untouched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="addressLine?.errors?.['required']">Address Line is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="city">City</label>
+      <select
+        id="city"
+        class="form-control"
+        formControlName="city"
+        required>
+        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+      </select>
+      <div
+        *ngIf="city?.invalid && (city?.dirty || !city?.untouched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="city?.errors?.['required']">City is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="postalCode">Postal Code</label>
+      <input type="text"
+             id="postalCode"
+             class="form-control"
+             formControlName="postalCode"
+             required/>
+      <div *ngIf="postalCode?.invalid && (postalCode?.dirty || !postalCode?.untouched)"
+           class="alert alert-danger"
+      >
+        <div *ngIf="postalCode?.errors?.['required']">Postal Code is required.</div>
+        <div *ngIf="postalCode?.errors?.['minlength']">Length Error!(Too short)</div>
+        <div *ngIf="postalCode?.errors?.['postalCodeInvalid']">Postal Code must be valid. Canada Postal Code Pattern is
+          ('ANA NAN', where 'A'
+          represents an alphabetic character and 'N' represents a numeric character ( e.g. , K1A 0T6))
+        </div>
+        <div *ngIf="postalCode?.errors?.['maxlength']">Length Error!(Too long)</div>
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="userForm.invalid"
+    >
+      Submit
+    </button>
+    <button
+      type="button"
+      class="btn btn-default"
+      (click)="userForm.reset()"
+    >
+      Reset
+    </button>
+
+  </form>
+
+</div>
