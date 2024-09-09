@@ -6,6 +6,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Docker Option
+
+If you have Docker environment, you can run `StartClient.bat` or `./StartClient.sh` to create a container for the client.
+Navigate to `http://localhost:4200/` as well after batch file executed successfully.
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
