@@ -103,6 +103,10 @@
           represents an alphabetic character and 'N' represents a numeric character ( e.g. , K1A 0T6))
         </div>
         <div *ngIf="postalCode?.errors?.['maxlength']">Length Error!(Too long)</div>
+        <div *ngIf="postalCode?.errors?.['pattern']">Postal Code must be valid. Canada Postal Code Pattern is
+          ('ANA NAN', where 'A'
+          represents an alphabetic character and 'N' represents a numeric character ( e.g. , K1A 0T6))
+        </div>
       </div>
     </div>
     <button

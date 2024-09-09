@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { RegisterFormComponent } from './register-form/register-form.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RegisterFormComponent
+    RegisterFormComponent,
+    HttpClientModule,
   ],
   declarations: [
     AppComponent,
